@@ -66,7 +66,7 @@ DEFAULTS = {
     "dtypes": [
         "float32",
     ],
-    "suites": ["torchbench", "huggingface"],
+    "suites": ["torchbench", "huggingface", "timm_models"],
     "devices": [
         "cuda",
     ],
