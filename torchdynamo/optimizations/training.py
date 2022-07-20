@@ -150,6 +150,7 @@ class AOTAutogradMemoryEfficientFusionWithContext:
 
 
 aot_autograd_speedup_strategy = AOTAutogradMemoryEfficientFusionWithContext()
+BACKENDS["nvfuser"] = aot_autograd_speedup_strategy
 
 
 class AOTAutogradPrimsNvFuser(AOTAutogradStrategy):
