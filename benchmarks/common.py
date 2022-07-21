@@ -1060,7 +1060,7 @@ def main(runner, original_dir=None):
         experiment = speedup_experiment
         output_filename = "overheads.csv"
     elif args.cold_start:
-        optimize_ctx = torchdynamo.optimize("nvfuser", nopython=args.nopython)
+        optimize_ctx = torchdynamo.optimize("aot_nvfuser", nopython=args.nopython)
         experiment = cold_start_experiment
         backend_str = "nvfuser" if args.nvfuser else "nnc"
         output_filename = f"cold_start_{backend_str}.csv"
@@ -1172,7 +1172,7 @@ def main(runner, original_dir=None):
         backend_str = "nvfuser" if args.nvfuser else "nnc"
         output_filename = f"accuracy_aot_{backend_str}.csv"
     elif args.accuracy_aot_ts_mincut:
-        optimize_ctx = torchdynamo.optimize("nvfuser", nopython=args.nopython)
+        optimize_ctx = torchdynamo.optimize("aot_nvfuser", nopython=args.nopython)
         experiment = speedup_experiment
         backend_str = "nvfuser" if args.nvfuser else "nnc"
         output_filename = f"accuracy_aot_{backend_str}_mincut.csv"

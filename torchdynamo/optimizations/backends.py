@@ -91,12 +91,8 @@ def nnc_ofi(subgraph):
         return reload_jit_model_ofi(subgraph)
 
 
-# nvfuser string is reserved for the best graph capture + nvfuser compiler. For
-# example, one better choice is AOT_Autogard + Torchscript + NVFuser with memory
-# efficient fusion.  Therefore, not using the the nvfuser name, and instead
-# using ts_nvfuser.
 @create_backend
-def ts_nvfuser(subgraph):
+def nvfuser(subgraph):
     with torch.jit.fuser("fuser2"):
         return reload_jit_model(subgraph)
 
