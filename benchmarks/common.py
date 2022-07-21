@@ -30,9 +30,6 @@ from torchdynamo.optimizations.inference import offline_autotuner
 from torchdynamo.optimizations.inference import online_autotuner
 from torchdynamo.optimizations.log_args import conv_args_analysis
 from torchdynamo.optimizations.python_key import python_key
-from torchdynamo.optimizations.training import aot_autograd_debug_strategy1
-from torchdynamo.optimizations.training import aot_autograd_nnc_strategy
-from torchdynamo.optimizations.training import aot_autograd_prims_nvfuser_strategy
 from torchdynamo.profiler import Profiler
 from torchdynamo.profiler import fx_insert_profiling
 from torchdynamo.testing import dummy_fx_compile
@@ -1159,15 +1156,11 @@ def main(runner, original_dir=None):
         args.float16 = True
         args.cosine = True
     elif args.accuracy_aot_nop:
-        optimize_ctx = torchdynamo.optimize(
-            aot_autograd_debug_strategy1, nopython=args.nopython
-        )
+        optimize_ctx = torchdynamo.optimize("aot_nop", nopython=args.nopython)
         experiment = speedup_experiment
         output_filename = "accuracy_aot_nop.csv"
     elif args.accuracy_aot_ts:
-        optimize_ctx = torchdynamo.optimize(
-            aot_autograd_nnc_strategy, nopython=args.nopython
-        )
+        optimize_ctx = torchdynamo.optimize("aot_ts", nopython=args.nopython)
         experiment = speedup_experiment
         backend_str = "nvfuser" if args.nvfuser else "nnc"
         output_filename = f"accuracy_aot_{backend_str}.csv"
@@ -1177,9 +1170,7 @@ def main(runner, original_dir=None):
         backend_str = "nvfuser" if args.nvfuser else "nnc"
         output_filename = f"accuracy_aot_{backend_str}_mincut.csv"
     elif args.prims_nvfuser:
-        optimize_ctx = torchdynamo.optimize(
-            aot_autograd_prims_nvfuser_strategy, nopython=args.nopython
-        )
+        optimize_ctx = torchdynamo.optimize("prims_nvfuser", nopython=args.nopython)
         experiment = speedup_experiment
         backend_str = "prims_nvfuser"
         output_filename = f"accuracy_aot_{backend_str}.csv"

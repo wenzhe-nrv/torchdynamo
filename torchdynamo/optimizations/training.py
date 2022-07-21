@@ -99,6 +99,7 @@ class AOTAutogradEagerStrategy(AOTAutogradStrategy):
 
 
 aot_autograd_debug_strategy1 = AOTAutogradEagerStrategy.compile_fn
+BACKENDS["aot_nop"] = aot_autograd_debug_strategy1
 
 
 class AOTAutogradNNCStrategy(AOTAutogradStrategy):
@@ -111,6 +112,7 @@ class AOTAutogradNNCStrategy(AOTAutogradStrategy):
 
 
 aot_autograd_nnc_strategy = AOTAutogradNNCStrategy.compile_fn
+BACKENDS["aot_ts"] = aot_autograd_nnc_strategy
 
 # Global counter to differentiate between different graphs.
 graph_idx = 0
@@ -130,6 +132,7 @@ class AOTAutogradEagerSaveStrategy(AOTAutogradEagerStrategy):
 
 
 aot_autograd_debug_strategy2 = AOTAutogradEagerSaveStrategy.compile_fn
+BACKENDS["aot_print"] = aot_autograd_debug_strategy2
 
 
 class AOTAutogradMemoryEfficientFusion(AOTAutogradStrategy):
@@ -211,3 +214,4 @@ class AOTAutogradPrimsNvFuser(AOTAutogradStrategy):
 
 
 aot_autograd_prims_nvfuser_strategy = AOTAutogradPrimsNvFuser.compile_fn
+BACKENDS["prims_nvfuser"] = aot_autograd_prims_nvfuser_strategy
